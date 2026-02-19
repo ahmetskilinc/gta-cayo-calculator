@@ -1,8 +1,15 @@
 {
-  "display": "standalone",
   "name": "Cayo Perico Heist Calculator",
-  "short_name": "Cayo Perico Heist Calculator",
-  "description": "Calculate the earnings of the Cayo Perico heist in GTA Online",
+  "short_name": "Cayo Calc",
+  "description": "Calculate your GTA Online Cayo Perico Heist earnings with full breakdown.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "theme_color": "#1a1a1a",
+  "background_color": "#1a1a1a",
+  "categories": ["games", "utilities"],
   "icons": [
     {
       "src": "manifest-icon-192.maskable.png",
@@ -27,6 +34,15 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Open Calculator",
+      "short_name": "Calculate",
+      "description": "Jump straight into the heist calculator",
+      "url": "/",
+      "icons": [{ "src": "manifest-icon-192.maskable.png", "sizes": "192x192" }]
     }
   ]
 }

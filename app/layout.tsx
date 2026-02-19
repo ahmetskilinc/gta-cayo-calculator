@@ -3,6 +3,7 @@ import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
+import { SWRegister } from "@/components/sw-register";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -15,6 +16,11 @@ export const metadata: Metadata = {
   title: "Cayo Perico Heist Calculator",
   description: "Calculate your GTA Online Cayo Perico Heist earnings with full breakdown.",
   manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "Cayo Calc",
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export const viewport: Viewport = {
@@ -33,8 +39,8 @@ export default function RootLayout({
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         <link rel="apple-touch-icon" href="apple-icon-180.png" />
-
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1a1a" />
 
         <link
           rel="apple-touch-startup-image"
@@ -241,6 +247,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Header />
           {children}
+          <SWRegister />
         </ThemeProvider>
       </body>
     </html>
