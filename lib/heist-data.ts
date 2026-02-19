@@ -1,4 +1,4 @@
-type PrimaryTarget = {
+export type PrimaryTarget = {
   id: string;
   name: string;
   standardValue: number;
@@ -18,7 +18,7 @@ type SecondaryLoot = {
   noOverfill?: boolean;
 };
 
-export const BAG_TOTAL_UNITS = 1800;
+const BAG_TOTAL_UNITS = 1800;
 
 export const PRIMARY_TARGETS: PrimaryTarget[] = [
   { id: "panther", name: "Panther Statue", standardValue: 1_900_000, hardValue: 2_090_000, bonusMultiplier: 1.0, rare: true },
@@ -88,6 +88,7 @@ export type HeistState = {
 };
 
 type PlayerShare = {
+  playerId: string;
   split: number;
   amount: number;
 };
@@ -101,7 +102,7 @@ type OptimalLootItem = {
   weightUnits: number;
 };
 
-type HeistCalculation = {
+export type HeistCalculation = {
   primaryValue: number;
   hardModeBonus: number;
   secondaryValue: number;
@@ -137,7 +138,7 @@ export function getDefaultSplits(playerCount: number): number[] {
   return [25, 25, 25, 25];
 }
 
-export function pileUnits(loot: SecondaryLoot): number {
+function pileUnits(loot: SecondaryLoot): number {
   return loot.grabWeightUnits.reduce((a, b) => a + b, 0);
 }
 
@@ -269,7 +270,8 @@ export function calculateHeist(state: HeistState): HeistCalculation {
   const officeSafeAmount = state.officeSafe;
   const netTotal = afterPavel - setupCost + eliteBonus + officeSafeAmount;
   const splits = state.playerSplits.length === state.playerCount ? state.playerSplits : getDefaultSplits(state.playerCount);
-  const perPlayerBreakdown: PlayerShare[] = splits.map((split) => ({
+  const perPlayerBreakdown: PlayerShare[] = splits.map((split, i) => ({
+    playerId: i === 0 ? "player-host" : `player-${i + 1}`,
     split,
     amount: netTotal * (split / 100),
   }));
